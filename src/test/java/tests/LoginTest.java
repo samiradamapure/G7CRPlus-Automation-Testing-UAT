@@ -2,6 +2,7 @@ package tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -12,6 +13,9 @@ import pages.LoginPage;
 import pages.SwitchUserPage;
 import utils.ConfigReader;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.util.Objects;
 
@@ -23,9 +27,21 @@ public class LoginTest {
     private SwitchUserPage switchUserPage;
 
     @BeforeMethod
-    public void setUp() {
-        // Initialize WebDriver (e.g., ChromeDriver, FirefoxDriver)
-        driver = new ChromeDriver();
+    public void setUp() throws IOException {
+
+        // Set up ChromeOptions with a unique user data directory
+        ChromeOptions options = new ChromeOptions();
+
+        // Create a unique temporary directory for user data to avoid DevOps Chrome conflict
+
+        Path userDataDir = Files.createTempDirectory("chrome-user-data");
+        options.addArguments("--user-data-dir=" + userDataDir.toString());
+
+        // Headless for DevOps pipeline
+        options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
+
+        // Initialize WebDriver with options (e.g., ChromeDriver, FirefoxDriver)
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
 
         // Initialize the LoginPage with the WebDriver instance
@@ -168,7 +184,7 @@ public class LoginTest {
 
         // Validate error message
         String actualMessage = switchUserPage.getToastErrorMessageText();
-        Assert.assertEquals(actualMessage, "Opps... Please select partner user.", "Error message mismatch.");
+        Assert.assertEquals(actualMessage, "Oops... Please select partner user.", "Error message mismatch.");
     }
 
     @AfterMethod
