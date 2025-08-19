@@ -184,7 +184,7 @@ public class LoginTest {
 
         // Validate error message
         String actualMessage = switchUserPage.getToastErrorMessageText();
-        Assert.assertEquals(actualMessage, "Oops... Please select partner user.", "Error message mismatch.");
+        Assert.assertEquals(actualMessage, "Opps... Please select partner user.", "Error message mismatch.");
     }
 
     @AfterMethod
