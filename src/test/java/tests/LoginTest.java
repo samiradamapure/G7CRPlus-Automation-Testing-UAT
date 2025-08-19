@@ -33,12 +33,15 @@ public class LoginTest {
         ChromeOptions options = new ChromeOptions();
 
         // Create a unique temporary directory for user data to avoid DevOps Chrome conflict
-
         Path userDataDir = Files.createTempDirectory("chrome-user-data");
         options.addArguments("--user-data-dir=" + userDataDir.toString());
 
-        // Headless for DevOps pipeline
-        options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
+        // Check system property (default: false for local, true in pipeline)
+        String headless = System.getProperty("headless", "false");
+
+        if (headless.equalsIgnoreCase("true")) {
+            options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
+        }
 
         // Initialize WebDriver with options (e.g., ChromeDriver, FirefoxDriver)
         driver = new ChromeDriver(options);

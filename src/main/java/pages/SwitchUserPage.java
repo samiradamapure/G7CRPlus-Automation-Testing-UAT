@@ -89,7 +89,7 @@ public class SwitchUserPage {
         waitForLoaderToDisappear();
 
         // Use the specific locator for the first result
-        By firstResult = By.xpath("//*[contains(@id,'bs-select-') and contains(@class,'dropdown-menu')]//span[2]");
+        By firstResult = By.xpath("//*[contains(@id,'bs-select-48')]//span[2]");
         WebElement result = wait.until(ExpectedConditions.elementToBeClickable(firstResult));
 
         // Capture the displayed text (email or name) before clicking
