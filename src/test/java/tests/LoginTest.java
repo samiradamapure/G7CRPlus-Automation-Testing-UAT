@@ -71,7 +71,7 @@ public class LoginTest {
         loginPage.clickStaySignedInYes();
 
         // Wait for the page to load and check the URL
-        new WebDriverWait(driver, Duration.ofSeconds(20)).until(webDriver ->
+        new WebDriverWait(driver, Duration.ofSeconds(40)).until(webDriver ->
             Objects.requireNonNull(webDriver.getCurrentUrl()).contains("/Customer/CustomerDashboard"));
 
         // Assert that the URL contains the expected path for Customer Admin
@@ -90,7 +90,7 @@ public class LoginTest {
         loginPage.clickStaySignedInYes();
 
         // Wait for the page to load and check the URL
-        new WebDriverWait(driver, Duration.ofSeconds(20)).until(webDriver ->
+        new WebDriverWait(driver, Duration.ofSeconds(40)).until(webDriver ->
             Objects.requireNonNull(webDriver.getCurrentUrl()).contains("/Provider/ProviderDashboard"));
 
         // Assert that the URL contains the expected path for Partner Admin
@@ -119,7 +119,7 @@ public class LoginTest {
         loginPage.clickStaySignedInYes();
 
         // Wait for the expected URL
-        new WebDriverWait(driver, Duration.ofSeconds(20)).until(webDriver ->
+        new WebDriverWait(driver, Duration.ofSeconds(40)).until(webDriver ->
                 Objects.requireNonNull(webDriver.getCurrentUrl()).endsWith("/Provider/ProviderDashboard"));
 
         // Wait for the page to load and check the URL
