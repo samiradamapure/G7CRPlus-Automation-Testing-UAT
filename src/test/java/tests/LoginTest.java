@@ -40,7 +40,7 @@ public class LoginTest {
         String headless = System.getProperty("headless", "false");
 
         if (headless.equalsIgnoreCase("true")) {
-            options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
+            options.addArguments("--headless=new", "--disable-gpu", "--window-size=1920,1080", "--no-sandbox", "--disable-dev-shm-usage");
         }
 
         // Initialize WebDriver with options (e.g., ChromeDriver, FirefoxDriver)
