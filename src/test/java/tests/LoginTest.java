@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.Objects;
+import java.util.UUID;
 
 @Listeners(listeners.ScreenshotListener.class)
 public class LoginTest {
@@ -35,6 +36,10 @@ public class LoginTest {
         // Create a unique temporary directory for user data to avoid DevOps Chrome conflict
         // Path userDataDir = Files.createTempDirectory("chrome-user-data");
         // options.addArguments("--user-data-dir=" + userDataDir.toString());
+
+        // ensure unique user-data-dir
+        String tempProfile = "/tmp/chrome-" + UUID.randomUUID();
+        options.addArguments("--user-data-dir=" + tempProfile);
 
         // Check system property (default: false for local, true in pipeline)
         String headless = System.getProperty("headless", "false");
