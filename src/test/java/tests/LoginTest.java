@@ -33,19 +33,21 @@ public class LoginTest {
         // Set up ChromeOptions with a unique user data directory
         ChromeOptions options = new ChromeOptions();
 
-        // Create a unique temporary directory for user data to avoid DevOps Chrome conflict
-        // Path userDataDir = Files.createTempDirectory("chrome-user-data");
-        // options.addArguments("--user-data-dir=" + userDataDir.toString());
+        // Always add these flags on Linux build agents
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--remote-allow-origins=*");
 
-        // ensure unique user-data-dir
+        // Ensure unique user-data-dir for each session
         String tempProfile = "/tmp/chrome-" + UUID.randomUUID();
         options.addArguments("--user-data-dir=" + tempProfile);
 
-        // Check system property (default: false for local, true in pipeline)
+        // Only add headless if pipeline/system property says so
         String headless = System.getProperty("headless", "false");
-
         if (headless.equalsIgnoreCase("true")) {
-            options.addArguments("--headless=new", "--disable-gpu", "--window-size=1920,1080", "--no-sandbox", "--disable-dev-shm-usage");
+            options.addArguments("--headless=new");
+            options.addArguments("--window-size=1920,1080");
         }
 
         // Initialize WebDriver with options (e.g., ChromeDriver, FirefoxDriver)
