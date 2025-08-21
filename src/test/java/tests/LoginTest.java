@@ -33,8 +33,8 @@ public class LoginTest {
         ChromeOptions options = new ChromeOptions();
 
         // Create a unique temporary directory for user data to avoid DevOps Chrome conflict
-        Path userDataDir = Files.createTempDirectory("chrome-user-data");
-        options.addArguments("--user-data-dir=" + userDataDir.toString());
+        // Path userDataDir = Files.createTempDirectory("chrome-user-data");
+        // options.addArguments("--user-data-dir=" + userDataDir.toString());
 
         // Check system property (default: false for local, true in pipeline)
         String headless = System.getProperty("headless", "false");
