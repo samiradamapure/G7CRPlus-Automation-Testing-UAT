@@ -34,14 +34,18 @@ public class LoginTest {
         ChromeOptions options = new ChromeOptions();
 
         // Always add these flags on Linux build agents
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--remote-allow-origins=*");
+        // options.addArguments("--no-sandbox");
+        // options.addArguments("--disable-dev-shm-usage");
+        // options.addArguments("--disable-gpu");
+        // options.addArguments("--remote-allow-origins=*");
 
         // Ensure unique user-data-dir for each session
-        String tempProfile = "/tmp/chrome-" + UUID.randomUUID();
-        options.addArguments("--user-data-dir=" + tempProfile);
+        // String tempProfile = "/tmp/chrome-" + UUID.randomUUID();
+        // options.addArguments("--user-data-dir=" + tempProfile);
+
+        // Use Windows temp directory for user-data-dir
+        // String tempProfile = System.getProperty("java.io.tmpdir") + "chrome-" + UUID.randomUUID();
+        // options.addArguments("--user-data-dir=" + tempProfile);
 
         // Only add headless if pipeline/system property says so
         String headless = System.getProperty("headless", "false");
