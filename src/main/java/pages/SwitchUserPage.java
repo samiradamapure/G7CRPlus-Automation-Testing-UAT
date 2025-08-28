@@ -32,7 +32,7 @@ public class SwitchUserPage {
     //Constructor
     public SwitchUserPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
     }
 
     //Methods
@@ -117,7 +117,7 @@ public class SwitchUserPage {
     public void waitForDashboardAndCloseToast() {
         // Wait for the dashboard to be visible
         By dashboardLocator = By.xpath("//*[@id='MyTickets_Dashboard' and text()='My Info']");
-        new WebDriverWait(driver, Duration.ofSeconds(20))
+        new WebDriverWait(driver, Duration.ofSeconds(40))
                 .until(ExpectedConditions.visibilityOfElementLocated(dashboardLocator));
 
         // Check for toast close button and click if present

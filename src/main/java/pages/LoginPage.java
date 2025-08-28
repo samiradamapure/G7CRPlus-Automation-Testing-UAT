@@ -26,7 +26,7 @@ public class LoginPage {
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public void enterEmail(String email) {
@@ -39,7 +39,7 @@ public class LoginPage {
 
     public void enterPassword(String password) {
         // Wait for the password field to be visible
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, Duration.ofSeconds(20))
                 .until(ExpectedConditions.visibilityOfElementLocated(passwordInput));
         driver.findElement(passwordInput).sendKeys(password);
     }
@@ -53,7 +53,7 @@ public class LoginPage {
 //    }
 
     public boolean isErrorMessageDisplayed() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         try {
             WebElement error = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("passwordError")));
             return error.isDisplayed();
@@ -63,7 +63,7 @@ public class LoginPage {
     }
 
     public void clickStaySignedInYes() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.elementToBeClickable(staySignedInYes)).click();
     }
 
