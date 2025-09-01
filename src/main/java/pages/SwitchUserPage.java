@@ -11,23 +11,24 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SwitchUserPage {
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 
     //Locators
-    private By profileImage = By.xpath("//*[@id='ProfileImage']");
-    private By switchUserLink = By.xpath("//*[@id='li_SwitchUser']/a");
-    private By modalTitle = By.xpath("//*[@id='dv_modal_AdminAsOtherUsers']/div/div[1]/h2");
-    private By userTypeDropdown = By.xpath("//*[@id='dv_AdminAOU']/div/div/button");
-    private By partnerUserOption = By.xpath("//span[contains(text(),'Partner user')]");
-    private By partnerUserSearchBox = By.xpath("//*[@id='dv_AdminAOU']/div/div/div/div[1]/input");
-    private By partnerUserResult = By.xpath("//*[contains(@id,'bs-select-') and contains(@class,'dropdown-menu')]//span[1]");
-    private By partnerRoleDropdown = By.xpath("//*[@id='dv_PartnerUsers']/div/div/button");
-    private By partnerRoleSearchBox = By.xpath("//*[@id='dv_PartnerUsers']/div/div/div/div[1]/input");
-    private By partnerRoleResult = By.xpath("//*[contains(@id,'bs-select-') and contains(@class,'dropdown-menu')]//span[contains(text(),'Partner cluster member')]");
-    private By switchUserButton = By.xpath("//*[@id='dv_modal_AdminAsOtherUsers']/div/div[3]/button[2]");
-    private By loggedInEmail = By.xpath("//*[@id='Layout_EamilId']");
-    private By toastMessage = By.xpath("//div[contains(@class,'toast-message')]");
+    private final By profileImage = By.xpath("//*[@id='ProfileImage']");
+    private final By switchUserLink = By.xpath("//*[@id='li_SwitchUser']/a");
+    private final By layoutRole = By.id("Layout_Role");
+    private final By modalTitle = By.xpath("//*[@id='dv_modal_AdminAsOtherUsers']/div/div[1]/h2");
+    private final By userTypeDropdown = By.xpath("//*[@id='dv_AdminAOU']/div/div/button");
+    private final By partnerUserOption = By.xpath("//span[contains(text(),'Partner user')]");
+    private final By partnerUserSearchBox = By.xpath("//*[@id='dv_AdminAOU']/div/div/div/div[1]/input");
+    private final By partnerUserResult = By.xpath("//*[contains(@id,'bs-select-') and contains(@class,'dropdown-menu')]//span[1]");
+    private final By partnerRoleDropdown = By.xpath("//*[@id='dv_PartnerUsers']/div/div/button");
+    private final By partnerRoleSearchBox = By.xpath("//*[@id='dv_PartnerUsers']/div/div/div/div[1]/input");
+    private final By partnerRoleResult = By.xpath("//*[contains(@id,'bs-select-') and contains(@class,'dropdown-menu')]//span[contains(text(),'Partner cluster member')]");
+    private final By switchUserButton = By.xpath("//*[@id='dv_modal_AdminAsOtherUsers']/div/div[3]/button[2]");
+    private final By loggedInEmail = By.xpath("//*[@id='Layout_EamilId']");
+    private final By toastMessage = By.xpath("//div[contains(@class,'toast-message')]");
 
     //Constructor
     public SwitchUserPage(WebDriver driver) {
@@ -42,6 +43,7 @@ public class SwitchUserPage {
     }
 
     public void clickSwitchUserLink() {
+        //wait.until(ExpectedConditions.invisibilityOfElementLocated(layoutRole));
         wait.until(ExpectedConditions.elementToBeClickable(switchUserLink)).click();
     }
 

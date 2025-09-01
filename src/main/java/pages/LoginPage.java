@@ -48,10 +48,6 @@ public class LoginPage {
         driver.findElement(signInButton).click();
     }
 
-//    public boolean isErrorMessageDisplayed1() {
-//        return driver.findElement(errorMessage).isDisplayed();
-//    }
-
     public boolean isErrorMessageDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         try {
