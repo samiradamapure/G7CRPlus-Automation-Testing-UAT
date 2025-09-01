@@ -1,5 +1,6 @@
 package tests;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -33,28 +34,45 @@ public class LoginTest {
         // Set up ChromeOptions with a unique user data directory
         ChromeOptions options = new ChromeOptions();
 
-        // Only add headless if pipeline/system property says so
+        // Always define a window size (important for DevOps/headless)
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox"); // helps in CI/CD Linux-based runners
+        options.addArguments("--remote-allow-origins=*"); // avoid Chrome 111+ issues
+
+        // Add headless mode only if property is passed
         String headless = System.getProperty("headless", "false");
         if (headless.equalsIgnoreCase("true")) {
-            options.addArguments("--headless=new");
-            options.addArguments("--window-size=1920,1080");
+            options.addArguments("--headless=new");  // new headless mode (Chrome 109+)
         }
-
         // Initialize WebDriver with options (e.g., ChromeDriver, FirefoxDriver)
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
+
+        // Maximize (for local) + enforce size (for CI)
+        try {
+            driver.manage().window().maximize();
+        } catch (Exception e) {
+            // fallback if maximize fails in headless
+            driver.manage().window().setSize(new Dimension(1920, 1080));
+        }
+
+        // Add global waits (important for flaky CI runs)
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
 
         // Initialize the LoginPage with the WebDriver instance
         loginPage = new LoginPage(driver);
+
+        // Initialize the SwitchUserPage with the WebDriver instance
+        switchUserPage = new SwitchUserPage(driver);
 
         // Get URL from config.properties
         String appUrl = ConfigReader.get("app.url");
 
         // Navigate to the login page
         driver.get(appUrl);
-
-        // Initialize the SwitchUserPage with the WebDriver instance
-        switchUserPage = new SwitchUserPage(driver);
     }
 
     @Test(priority = 1)
