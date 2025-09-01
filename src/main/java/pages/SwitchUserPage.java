@@ -18,7 +18,7 @@ public class SwitchUserPage {
     private final By profileImage = By.xpath("//*[@id='ProfileImage']");
     private final By switchUserLink = By.xpath("//*[@id='li_SwitchUser']/a");
     private final By layoutRole = By.id("Layout_Role");
-    private final By modalTitle = By.xpath("//*[@id='dv_modal_AdminAsOtherUsers']/div/div[1]/h2");
+    private final By modalTitle = By.xpath("//*[@id='dv_modal_AdminAsOtherUsers']//h2");
     private final By userTypeDropdown = By.xpath("//*[@id='dv_AdminAOU']/div/div/button");
     private final By partnerUserOption = By.xpath("//span[contains(text(),'Partner user')]");
     private final By partnerUserSearchBox = By.xpath("//*[@id='dv_AdminAOU']/div/div/div/div[1]/input");
