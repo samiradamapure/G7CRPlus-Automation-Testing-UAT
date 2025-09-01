@@ -68,7 +68,7 @@ public class LoginTest {
         // Initialize the SwitchUserPage with the WebDriver instance
         switchUserPage = new SwitchUserPage(driver);
 
-        // Get URL from config.properties
+        // Get URL from config properties
         String appUrl = ConfigReader.get("app.url");
 
         // Navigate to the login page

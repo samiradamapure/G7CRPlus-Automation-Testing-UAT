@@ -2,19 +2,27 @@ package utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
-    private static final Properties properties;
+    private static final Properties properties = new Properties();
 
     static {
         try {
-            properties = new Properties();
-            FileInputStream fis = new FileInputStream("src/test/resources/config.properties");
-            properties.load(fis);
+            // Read env from JVM system property, fallback to "dev"
+            String env = System.getProperty("env", "dev"); // default = dev
+
+            // Build file name based on env
+            String fileName = "src/test/resources/config." + env + ".properties";
+
+            try (InputStream fis = new FileInputStream(fileName)) {
+                properties.load(fis);
+                System.out.println("Loaded config file: " + fileName);
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Failed to load config.properties file.");
+            throw new RuntimeException("Failed to load environment-specific config file.");
         }
     }
 
