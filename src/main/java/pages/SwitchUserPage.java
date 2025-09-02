@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,7 +27,7 @@ public class SwitchUserPage {
     private final By partnerRoleDropdown = By.xpath("//*[@id='dv_PartnerUsers']/div/div/button");
     private final By partnerRoleSearchBox = By.xpath("//*[@id='dv_PartnerUsers']/div/div/div/div[1]/input");
     private final By partnerRoleResult = By.xpath("//*[contains(@id,'bs-select-') and contains(@class,'dropdown-menu')]//span[contains(text(),'Partner cluster member')]");
-    private final By switchUserButton = By.xpath("//*[@id='dv_modal_AdminAsOtherUsers']/div/div[3]/button[2]");
+    private final By switchUserButton = By.xpath("//button[normalize-space()='Switch User']");
     private final By loggedInEmail = By.xpath("//*[@id='Layout_EamilId']");
     private final By toastMessage = By.xpath("//div[contains(@class,'toast-message')]");
 
@@ -146,7 +147,20 @@ public class SwitchUserPage {
     }
 
     public void clickSwitchUserButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(switchUserButton)).click();
+        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(switchUserButton));
+
+        // Cast driver to JavascriptExecutor
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        // Scroll into view
+        js.executeScript("arguments[0].scrollIntoView(true);", button);
+
+        try {
+            button.click();
+        } catch (Exception e) {
+            // Fallback to JS click if normal click fails
+            js.executeScript("arguments[0].click();", button);
+        }
     }
 
     public void waitForToastToDisappear() {
